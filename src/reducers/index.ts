@@ -15,7 +15,7 @@ const reducer = (state = initialState, action: Action) => {
         ...state,
         usersLoadingStatus: "loading",
       };
-    case "USERS_FETCHED":
+    case ActionTypes.USERS_FETCHED:
       return {
         ...state,
         users: action.payload,

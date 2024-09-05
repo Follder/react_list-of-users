@@ -7,10 +7,10 @@ export const usersFetching = () => {
   }
 }
 
-export const usersFetched = (heroes: User[]) => {
+export const usersFetched = (users: User[]) => {
   return {
       type: ActionTypes.USERS_FETCHED,
-      payload: heroes
+      payload: users,
   }
 }
 
