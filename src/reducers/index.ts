@@ -1,7 +1,7 @@
-import { Action, UsersFetchingAction, UsersFetchedAction, ActionTypes } from "../types/Reducer";
+import { Action, ActionTypes } from "../types/Reducer";
+import { State } from "../types/State";
 
-
-const initialState = {
+const initialState: State = {
   users: [],
   usersLoadingStatus: "idle",
   activeFilter: "all",
@@ -19,28 +19,28 @@ const reducer = (state = initialState, action: Action) => {
       return {
         ...state,
         users: action.payload,
-        filteredUsers:
-          state.activeFilter === "all"
-            ? action.payload
-            : action.payload.filter(
-                (item) => item.element === state.activeFilter
-              ),
+        // filteredUsers:
+        //   state.activeFilter === "all"
+        //     ? action.payload
+        //     : action.payload.filter(
+        //         (item) => item.name === state.activeFilter
+        //       ),
         usersLoadingStatus: "idle",
       };
-    case "HEROES_FETCHING_ERROR":
+    case ActionTypes.USERS_FETCHING_ERROR :
       return {
         ...state,
         usersLoadingStatus: "error",
       };
 
-    case "ACTIVE_FILTER_CHANGED":
+    case ActionTypes.ACTIVE_FILTER_CHANGED:
       return {
         ...state,
         activeFilter: action.payload,
-        filteredUsers:
-          action.payload === "all"
-            ? state.users
-            : state.users.filter((item) => item.element === action.payload),
+        // filteredUsers:
+        //   action.payload === "all"
+        //     ? state.users
+        //     : state.users.filter((item) => item.name === action.payload),
       };
     default:
       return state;
