@@ -5,5 +5,3 @@ export enum Filter {
   EMAIL = 'email',
   PHONE = 'phone',
 }
-
-// export type Filter = 'all' | 'name' | 'username' | 'email' | 'phone';
