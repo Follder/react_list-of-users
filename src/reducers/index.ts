@@ -1,10 +1,13 @@
+import { Filter } from "../types/Filter";
 import { Action, ActionTypes } from "../types/Reducer";
 import { State } from "../types/State";
+import { filtered } from "../utils/filtered";
 
 const initialState: State = {
   users: [],
   usersLoadingStatus: "idle",
-  activeFilter: "all",
+  activeFilter: Filter.ALL,
+  queryFilter: '',
   filteredUsers: [],
 };
 
@@ -15,18 +18,15 @@ const reducer = (state = initialState, action: Action) => {
         ...state,
         usersLoadingStatus: "loading",
       };
+
     case ActionTypes.USERS_FETCHED:
       return {
         ...state,
         users: action.payload,
-        // filteredUsers:
-        //   state.activeFilter === "all"
-        //     ? action.payload
-        //     : action.payload.filter(
-        //         (item) => item.name === state.activeFilter
-        //       ),
+        filteredUsers: action.payload,
         usersLoadingStatus: "idle",
       };
+
     case ActionTypes.USERS_FETCHING_ERROR :
       return {
         ...state,
@@ -37,11 +37,16 @@ const reducer = (state = initialState, action: Action) => {
       return {
         ...state,
         activeFilter: action.payload,
-        // filteredUsers:
-        //   action.payload === "all"
-        //     ? state.users
-        //     : state.users.filter((item) => item.name === action.payload),
+        filteredUsers: filtered(state.users, action.payload, state.queryFilter)
       };
+
+    case ActionTypes.QUERY_CHANGED:
+      return {
+        ...state,
+        queryFilter: action.payload,
+        filteredUsers: filtered(state.users, state.activeFilter, action.payload)
+      }
+
     default:
       return state;
   }

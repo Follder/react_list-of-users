@@ -1,3 +1,4 @@
+import { Filter } from "./Filter";
 import { User } from "./User";
 
 export enum ActionTypes {
@@ -5,6 +6,7 @@ export enum ActionTypes {
   USERS_FETCHED = "USERS_FETCHED",
   USERS_FETCHING_ERROR = "USERS_FETCHING_ERROR",
   ACTIVE_FILTER_CHANGED = "ACTIVE_FILTER_CHANGED",
+  QUERY_CHANGED = "QUERY_FILTER_CHANGED"
 }
 
 export interface UsersFetchingAction {
@@ -22,6 +24,11 @@ export interface UsersFetchingErrorAction {
 
 export interface ActiveFilterChangedAction {
   type: ActionTypes.ACTIVE_FILTER_CHANGED
+  payload: Filter;
+}
+
+export interface QueryFilterChangedAction {
+  type: ActionTypes.QUERY_CHANGED
   payload: string;
 }
 
@@ -29,12 +36,5 @@ export type Action =
   | UsersFetchingAction
   | UsersFetchedAction
   | UsersFetchingErrorAction
-  | ActiveFilterChangedAction;
-
-// export type {
-//   UsersFetchingAction,
-//   UsersFetchedAction,
-//   UsersFetchingErrorAction,
-//   ActiveFilterChangedAction,
-//   Action,
-// };
+  | ActiveFilterChangedAction
+  | QueryFilterChangedAction;
